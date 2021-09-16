@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>age</th>
+            <th>email</th>
+            <th>操作</th>
+        </tr>
+        <tr th:each="users: ${page.records}">
+            <td th:text="${users.id}"></td>
+            <td th:text="${users.name}"></td>
+            <td th:text="${users.age}"></td>
+            <td>[[${users.email}]]</td>
+            <td><a th:href="@{/user/delete/{id}(id=${users.id},pn=${page.current})}" type="button">删除</a></td>
+        </tr>
+    </table>
+    <div>当前第[[${page.current}]]页,总计[[${page.pages}]]页,共[[${page.total}]]条记录</div>
+    <div style="float: left;">
+        <button th:if="${page.current} eq 1"><a>上一页</a></button>
+        <button th:if="${page.current} gt 1"><a th:href="@{/dynamic_table(pn=${page.current}-1)}">上一页</a></button>
+        <button th:class="${num == page.current?'active':''}" th:each="num:${#numbers.sequence(1,page.pages)}">
+                <a th:href="@{/dynamic_table(pn=${num})}">[[${num}]]</a>
+        </button>
+        <button th:if="${page.current} lt ${page.pages}"><a th:href="@{/dynamic_table(pn=${page.current}+1)}">下一页</a></button>
+        <button th:if="${page.current} eq ${page.pages}"><a>下一页</a></button>
+    </div>
+</body>
+</html>

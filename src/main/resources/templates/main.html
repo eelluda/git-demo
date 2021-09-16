@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>欢迎你！[[${session.loginuser.username}]]</h1>
+    <a th:href="@{/from_layouts}">用户表</a>
+    <a th:href="@{/dynamic_table}">users表</a>
+</body>
+</html>
